@@ -1,0 +1,58 @@
+import javax.swing.JOptionPane;
+
+public class FareBusFareCalculator {
+
+    public static void main(String[] args) {
+        double baseFare = 10.0;
+        double perKmRate = 1.50;
+
+        String inputDistance = JOptionPane.showInputDialog("Enter distance traveled in kilometers:");
+        double distance = Double.parseDouble(inputDistance);
+
+        String inputType = JOptionPane.showInputDialog(
+            "Enter passenger type:\n1 - Regular\n2 - Student\n3 - Senior\n4 - PWD"
+        );
+        int passengerType = Integer.parseInt(inputType);
+
+        double totalFare = baseFare + (perKmRate * distance);
+        double discount = 0;
+
+        switch (passengerType) {
+            case 1:
+                // Regular - no discount
+                discount = 0;
+                break;
+            case 2:
+                // Student - 20% discount
+                discount = 0.20;
+                break;
+            case 3:
+                // Senior - 30% discount
+                discount = 0.30;
+                break;
+            case 4:
+                // PWD - 25% discount
+                discount = 0.25;
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Invalid passenger type entered. Assuming Regular.");
+                discount = 0;
+        }
+
+        double discountedFare = totalFare - (totalFare * discount);
+
+        JOptionPane.showMessageDialog(null, 
+            String.format("Distance: %.2f km\nPassenger Type: %s\nTotal Fare: ₱%.2f", 
+                distance, getPassengerTypeName(passengerType), discountedFare));
+    }
+
+    public static String getPassengerTypeName(int type) {
+        switch (type) {
+            case 1: return "Regular";
+            case 2: return "Student";
+            case 3: return "Senior";
+            case 4: return "PWD";
+            default: return "Regular";
+        }
+    }
+}
